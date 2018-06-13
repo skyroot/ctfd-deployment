@@ -1,0 +1,93 @@
+System prerequisites:
+
+1. Ubuntu 16.04
+2. Internet connection for apt-get and git
+
+
+
+Setting up uwsgi and nginx:
+
+1. Install uwsgi and nginx:
+        "sudo apt-get install uwsgi uwsgi-plugin-python nginx"
+
+2. Delete the default proxy:
+        "sudo rm /etc/nginx/sites-available/default"
+        "sudo rm /etc/nginx/sites-enabled/default"
+
+3. Finalize nginx:
+        "sudo vim /etc/nginx/nginx.conf"
+            and uncomment the line: "server_names_hash_bucket_size 64;"
+
+        "sudo systemctl restart nginx"
+
+
+
+Running your first CTFd instance:
+
+1. Create nginx proxy at YOUR_URL1 (e.g. ctfd1.ncl.sg):
+        "sudo vim /etc/nginx/sites-available/YOUR_URL1"
+            with the content:
+                server {
+                    listen 80;
+                    listen [::]:80;
+
+                    server_name YOUR_URL1;
+
+                    location / { try_files $uri @yourapplication1; }
+                    location @yourapplication1 {
+                        include uwsgi_params;
+                        uwsgi_pass unix:/tmp/uwsgi1.sock;
+                    }
+                }
+
+        "sudo ln -s /etc/nginx/sites-available/YOUR_URL1 /etc/nginx/sites-enabled/"
+        "sudo systemctl restart nginx"
+
+2. Clone CTFd into your desired directory (e.g. ctfd1/):
+        "git clone https://github.com/CTFd/CTFd.git ctfd1"
+
+3. Install CTFd prerequisites:
+        "cd ctfd1"
+        "sudo ./prepare.sh"
+
+4. Run CTFd:
+        "cd ctfd1"
+        "uwsgi --plugin python -s /tmp/uwsgi1.sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /tmp/ctfd1.pid &"
+        "disown"
+
+
+
+Running another CTFd instance:
+
+1. Create nginx proxy at YOUR_URL2 (e.g. ctfd2.ncl.sg):
+        "sudo vim /etc/nginx/sites-available/YOUR_URL2"
+            with the content:
+                server {
+                    listen 80;
+                    listen [::]:80;
+
+                    server_name YOUR_URL2;
+
+                    location / { try_files $uri @yourapplication2; }
+                    location @yourapplication2 {
+                        include uwsgi_params;
+                        uwsgi_pass unix:/tmp/uwsgi2.sock;
+                    }
+                }
+
+        "sudo ln -s /etc/nginx/sites-available/YOUR_URL2 /etc/nginx/sites-enabled/"
+        "sudo systemctl restart nginx"
+
+2. Clone another CTFd folder (e.g. ctfd2/):
+        "git clone https://github.com/nus-ncl/ctfd.git ctfd2"
+
+3. Run CTFd:
+        "cd ctfd2"
+        "uwsgi --plugin python -s /tmp/uwsgi2.sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /tmp/ctfd2.pid &"
+        "disown"
+
+
+
+To stop CTFd instances:
+    "uwsgi --stop /tmp/ctfd1.pid"
+    "uwsgi --stop /tmp/ctfd2.pid"
