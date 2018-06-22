@@ -56,11 +56,13 @@ Setting up uwsgi and nginx:
 
 Running your first CTFd instance:
 
-1. Create directory with permissions for uwsgi and nginx:
+1. Create directory accessible by uwsgi and nginx:
         "mkdir /uwsgi"
+
+2. Add httpd_t to permissive (not enforced) for SELinux security policy:
         "semanage permissive -a httpd_t"
 
-2. Create nginx proxy at YOUR_URL1 (e.g. ctfd1.ncl.sg):
+3. Create nginx proxy at YOUR_URL1 (e.g. ctfd1.ncl.sg):
         "vim /etc/nginx/sites-available/YOUR_URL1"
             with the content:
                 server {
@@ -79,16 +81,16 @@ Running your first CTFd instance:
         "ln -s /etc/nginx/sites-available/YOUR_URL1 /etc/nginx/sites-enabled/"
         "systemctl restart nginx"
 
-3. Clone CTFd into your desired directory (e.g. ctfd1/):
+4. Clone CTFd into your desired directory (e.g. ctfd1/):
         "git clone https://github.com/CTFd/CTFd.git ctfd1"
 
-4. Install CTFd prerequisites (using equivalent of prepare.sh commands):
+5. Install CTFd prerequisites (using equivalent of prepare.sh commands):
         "cd ctfd1"
         "yum install gcc gcc-c++ make"
         "yum install -y libffi libffi-devel"
         "./prepare.sh"
 
-5. Run CTFd:
+6. Run CTFd:
         "cd ctfd1"
         "uwsgi --plugin python -s /uwsgi/uwsgi1.sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /uwsgi/ctfd1.pid &"
         "disown"
