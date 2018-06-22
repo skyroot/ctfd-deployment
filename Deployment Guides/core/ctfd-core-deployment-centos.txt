@@ -8,7 +8,8 @@ System prerequisites:
 SSH:
 
 1. SSH into your root account:
-        "ssh root@ctf-i.comp.nus.edu.sg"
+        "ssh user@ctf-i.comp.nus.edu.sg"
+        "su root"
 
 
 
