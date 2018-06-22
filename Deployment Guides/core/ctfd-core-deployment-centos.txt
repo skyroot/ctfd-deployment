@@ -13,6 +13,19 @@ SSH:
 
 
 
+Open port 80 in firewall:
+
+1. Edit iptables
+        "vim /etc/sysconfig/iptables"
+                below the line ":OUTPUT_direct - [0:0]",
+                add "-A INPUT -i ens32 -p tcp -m tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT"
+        
+2. Restart firewall and save 
+        "service iptables restart"
+        "service iptables save"
+
+
+
 Setting up uwsgi and nginx:
 
 1. Enable EPEL repo:
