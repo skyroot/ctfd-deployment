@@ -1,0 +1,117 @@
+System prerequisites:
+
+1. CentOS Linux release 7.5.1804 (Core) 
+2. Internet connection
+
+
+
+SSH:
+
+1. SSH into your root account:
+        "ssh root@ctf-i.comp.nus.edu.sg"
+
+
+
+Setting up uwsgi and nginx:
+
+1. Enable EPEL repo:
+        "yum install epel-release"
+
+2. Install uwsgi and nginx:
+        "yum install python-pip python-devel gcc nginx uwsgi uwsgi-plugin-python"
+
+3. Shut down Apache and disable on startup:
+        "service httpd stop"
+        "systemctl disable httpd"
+
+4. Start nginx web server:
+        "service nginx start"
+
+5. Finalize nginx:
+        "mkdir /etc/nginx/sites-available"
+        "mkdir /etc/nginx/sites-enabled"
+
+        "vim /etc/nginx/nginx.conf"
+            below the line "include /etc/nginx/conf.d/*.conf;", add lines:
+                "server_names_hash_bucket_size 64;"
+                "include /etc/nginx/sites-enabled/*;"
+
+        "systemctl restart nginx"
+
+
+
+Running your first CTFd instance:
+
+1. Create directory with permissions for uwsgi and nginx:
+        "mkdir /uwsgi"
+        "semanage permissive -a httpd_t"
+
+2. Create nginx proxy at YOUR_URL1 (e.g. ctfd1.ncl.sg):
+        "vim /etc/nginx/sites-available/YOUR_URL1"
+            with the content:
+                server {
+                    listen 80;
+                    listen [::]:80;
+
+                    server_name YOUR_URL1;
+
+                    location / { try_files $uri @yourapplication1; }
+                    location @yourapplication1 {
+                        include uwsgi_params;
+                        uwsgi_pass unix:/uwsgi/uwsgi1.sock;
+                    }
+                }
+
+        "ln -s /etc/nginx/sites-available/YOUR_URL1 /etc/nginx/sites-enabled/"
+        "systemctl restart nginx"
+
+3. Clone CTFd into your desired directory (e.g. ctfd1/):
+        "git clone https://github.com/CTFd/CTFd.git ctfd1"
+
+4. Install CTFd prerequisites (using equivalent of prepare.sh commands):
+        "cd ctfd1"
+        "yum install gcc gcc-c++ make"
+        "yum install -y libffi libffi-devel"
+        "./prepare.sh"
+
+5. Run CTFd:
+        "cd ctfd1"
+        "uwsgi --plugin python -s /uwsgi/uwsgi1.sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /uwsgi/ctfd1.pid &"
+        "disown"
+
+
+
+Running another CTFd instance:
+
+1. Create nginx proxy at YOUR_URL2 (e.g. ctfd2.ncl.sg):
+        "vim /etc/nginx/sites-available/YOUR_URL2"
+            with the content:
+                server {
+                    listen 80;
+                    listen [::]:80;
+
+                    server_name YOUR_URL2;
+
+                    location / { try_files $uri @yourapplication2; }
+                    location @yourapplication2 {
+                        include uwsgi_params;
+                        uwsgi_pass unix:/uwsgi/uwsgi2.sock;
+                    }
+                }
+
+        "ln -s /etc/nginx/sites-available/YOUR_URL2 /etc/nginx/sites-enabled/"
+        "systemctl restart nginx"
+
+2. Clone another CTFd folder (e.g. ctfd2/):
+        "git clone https://github.com/nus-ncl/ctfd.git ctfd2"
+
+3. Run CTFd:
+        "cd ctfd2"
+        "uwsgi --plugin python -s /uwsgi/uwsgi2.sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /uwsgi/ctfd2.pid &"
+        "disown"
+
+
+
+To stop CTFd instances:
+    "uwsgi --stop /uwsgi/ctfd1.pid"
+    "uwsgi --stop /uwsgi/ctfd2.pid"
