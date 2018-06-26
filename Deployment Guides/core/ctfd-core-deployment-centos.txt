@@ -13,16 +13,17 @@ SSH:
 
 
 
-Open port 80 in firewall:
+Configure system network:
 
-1. Edit iptables
-        "vim /etc/sysconfig/iptables"
-                below the line ":OUTPUT_direct - [0:0]",
-                add "-A INPUT -i ens32 -p tcp -m tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT"
+1. Add firewall rule to allow incoming HTTP
+        "iptables -I INPUT -i ens32 -p tcp -m tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT"
         
-2. Restart firewall and save 
-        "service iptables restart"
+2. Save and restart firewall
         "service iptables save"
+        "service iptables restart"
+
+3. Increase max number of connections (e.g. for ~512 concurrent users across all CTFd instances)
+        "sysctl -w net.core.somaxconn=1024"
 
 
 
@@ -40,6 +41,7 @@ Setting up uwsgi and nginx:
 
 4. Start nginx web server:
         "service nginx start"
+        "systemctl enable nginx"
 
 5. Finalize nginx:
         "mkdir /etc/nginx/sites-available"
@@ -92,7 +94,7 @@ Running your first CTFd instance:
 
 6. Run CTFd:
         "cd ctfd1"
-        "uwsgi --plugin python -s /uwsgi/uwsgi1.sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /uwsgi/ctfd1.pid &"
+        "uwsgi --plugin python -s /uwsgi/uwsgi1.sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /uwsgi/ctfd1.pid -l 1024 &"
         "disown"
 
 
@@ -123,7 +125,7 @@ Running another CTFd instance:
 
 3. Run CTFd:
         "cd ctfd2"
-        "uwsgi --plugin python -s /uwsgi/uwsgi2.sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /uwsgi/ctfd2.pid &"
+        "uwsgi --plugin python -s /uwsgi/uwsgi2.sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /uwsgi/ctfd2.pid -l 1024 &"
         "disown"
 
 
