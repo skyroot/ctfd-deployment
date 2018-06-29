@@ -10,7 +10,7 @@ Setting up uwsgi and nginx:
 1. Install uwsgi and nginx:
         "sudo apt-get install uwsgi uwsgi-plugin-python nginx"
 
-2. Delete the default proxy:
+2. Delete the default proxy (optional):
         "sudo rm /etc/nginx/sites-available/default"
         "sudo rm /etc/nginx/sites-enabled/default"
 
