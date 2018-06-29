@@ -18,7 +18,7 @@ Running Thunderpush for each CTFd instance (e.g. in the folder ctfd1/):
 
 1. Clone the plugins:
         "cd ctfd1/CTFd/plugins"
-        "git clone https://github.com/CTFd/CTFd-Notify.git"
+        "git clone -n https://github.com/CTFd/CTFd-Notify.git CTFd-Notify && cd CTFd-Notify && git checkout 6f886a414b40f19b9dcf1cf07e4d1c390d5602c2"
 
 2. Run Thunderpush (with different port number for each instance):
         "export PATH=$PATH:~/.local/bin"

@@ -84,7 +84,7 @@ Running your first CTFd instance:
         "systemctl restart nginx"
 
 4. Clone CTFd into your desired directory (e.g. ctfd1/):
-        "git clone https://github.com/CTFd/CTFd.git ctfd1"
+        "git clone -n https://github.com/CTFd/CTFd.git ctfd1 && cd ctfd1 && git checkout 36dadcf1d50ecfd1d7c0b72be129cef1f93e5c5f"
 
 5. Install CTFd prerequisites (using equivalent of prepare.sh commands):
         "cd ctfd1"
@@ -121,7 +121,7 @@ Running another CTFd instance:
         "systemctl restart nginx"
 
 2. Clone another CTFd folder (e.g. ctfd2/):
-        "git clone https://github.com/nus-ncl/ctfd.git ctfd2"
+        "git clone -n https://github.com/CTFd/CTFd.git ctfd2 && cd ctfd2 && git checkout 36dadcf1d50ecfd1d7c0b72be129cef1f93e5c5f"
 
 3. Run CTFd:
         "cd ctfd2"
