@@ -2,8 +2,8 @@
 
 echo "$0: Started..."
 
-if [ "$EUID" -ne 0 ]
-  then echo "Failed: Please run as root."
+if [ "$EUID" -ne 0 ]; then 
+  echo "Failed: Please run as root."
   exit
 fi
 

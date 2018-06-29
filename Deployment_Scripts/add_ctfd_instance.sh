@@ -5,8 +5,13 @@ hostname="$1"
 
 echo "$0: Started..."
 
-if [ "$EUID" -ne 0 ]
-  then echo "Failed: Please run as root."
+if [ "$#" -ne 1 ]; then
+  echo "Failed: Wrong number of parameters."
+  exit
+fi
+
+if [ "$EUID" -ne 0 ]; then 
+  echo "Failed: Please run as root."
   exit
 fi
 
@@ -14,8 +19,8 @@ fi
 cd "${0%/*}"
 
 # Fail if there exists another CTFd instance with the same hostname
-if [ -d "$hostname" ]
-  then echo "Failed: hostname already exists."
+if [ -d "$hostname" ]; then 
+  echo "Failed: hostname already exists."
   exit
 fi
 
