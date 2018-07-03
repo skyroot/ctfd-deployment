@@ -2,10 +2,12 @@
 
 # Variables
 hostname="$1"
+ctfname="$2"
+adminemail="$3"
 
 echo "$0: Started..."
 
-if [ "$#" -ne 1 ]; then
+if [ "$#" -ne 3 ]; then
   echo "Failed: Wrong number of parameters."
   exit
 fi
@@ -56,12 +58,18 @@ systemctl restart nginx
 echo "Starting CTFd..."
 
 # Clone the CTFd folder
-git clone -n https://github.com/CTFd/CTFd.git "$hostname"
+git clone https://github.com/nus-ncl/CTFd.git "$hostname"
 cd "$hostname"
-git checkout 36dadcf1d50ecfd1d7c0b72be129cef1f93e5c5f
 
 # Run CTFd with uWSGI
 nohup uwsgi --plugin python -s /tmp/uwsgi_"$hostname".sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /tmp/ctfd_"$hostname".pid &
+
+
+
+echo "Setting up CTFd..."
+
+# POST to CTFd setup page
+curl --data "ctf_name=$ctfname&name=$adminemail&email=$adminemail&password=unused_password" http://"$hostname"/setup
 
 
 

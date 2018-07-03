@@ -30,9 +30,8 @@ systemctl restart nginx
 echo "Installing CTFd prerequisites..."
 
 # Clone the CTFd folder
-git clone -n https://github.com/CTFd/CTFd.git ctfd-temp
+git clone https://github.com/nus-ncl/CTFd.git ctfd-temp
 cd ctfd-temp
-git checkout 36dadcf1d50ecfd1d7c0b72be129cef1f93e5c5f
 
 # Install CTFd prerequisites
 ./prepare.sh
