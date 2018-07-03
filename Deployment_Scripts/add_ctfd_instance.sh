@@ -69,7 +69,7 @@ nohup uwsgi --plugin python -s /tmp/uwsgi_"$hostname".sock -w 'CTFd:create_app()
 echo "Setting up CTFd..."
 
 # POST to CTFd setup page
-curl --data "ctf_name=$ctfname&name=$adminemail&email=$adminemail&password=unused_password" http://"$hostname"/setup
+curl --data "ctf_name=$ctfname&name=$adminemail&email=$adminemail&password=unused_password" -H "Host: $hostname" http://localhost/setup
 
 
 
