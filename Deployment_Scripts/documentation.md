@@ -24,11 +24,11 @@ Must be run once.
 
 To create and start a new CTFd instance.
 
-```sudo ./add_ctfd_instance.sh <hostname> <ctfname> <admin's NCL email>```
+```sudo ./add_ctfd_instance.sh <hostname> <ctf_name> <admin_ncl_email>```
 
 - *hostname* can be any URL
-- *ctfname* is the name shown on the CTF website banner
-- *admin's NCL email* is the ncl.sg login email of this CTF's admin **(Please make sure that this is correct)**
+- *ctf_name* is the name shown on the CTF website banner
+- *admin_ncl_email* is the ncl.sg login email of this CTF's admin **(Please make sure that this is correct)**
 
 For example:
 
