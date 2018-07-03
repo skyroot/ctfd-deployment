@@ -28,11 +28,11 @@ To create and start a new CTFd instance.
 
 - *hostname* can be any URL
 - *ctfname* is the name shown on the CTF website banner
-- *admin's NCL email* is the login email of the admin in ncl.sg
+- *admin's NCL email* is the login email of the admin in ncl.sg **(Please make sure that this is correct)**
 
 For example:
 
-> sudo ./add_ctfd_instance.sh cs4238.ctf.ncl.sg "CS4238 CTF" john@doe.com
+> sudo ./add_ctfd_instance.sh cs4238.ctf.ncl.sg "CS4238 CTF" ncl.vte1@gmail.com
 
 ## remove_ctfd_instance.sh
 
