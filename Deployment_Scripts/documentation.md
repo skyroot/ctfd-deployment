@@ -28,7 +28,7 @@ To create and start a new CTFd instance.
 
 - *hostname* can be any URL
 - *ctfname* is the name shown on the CTF website banner
-- *admin's NCL email* is the login email of the admin in ncl.sg **(Please make sure that this is correct)**
+- *admin's NCL email* is the ncl.sg login email of this CTF's admin **(Please make sure that this is correct)**
 
 For example:
 
