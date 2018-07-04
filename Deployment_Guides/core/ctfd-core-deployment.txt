@@ -91,3 +91,18 @@ Running another CTFd instance:
 To stop CTFd instances:
     "uwsgi --stop /tmp/ctfd1.pid"
     "uwsgi --stop /tmp/ctfd2.pid"
+
+
+
+About SSL certificate options:
+
+1. Using free SSL certificate LetsEncrypt:
+        - Do DNS-01 challenge (TXT record in DNS) on a wildcard domain such as *.ctf.ncl.sg
+        - Expires every 90 days, should automate renewals
+        - Requires the registrant's credentials for ncl.sg domain server_name
+
+2. Using self-signed certificate:
+        2a. Using startcmd to install certificates on client nodes
+                - OS dependent, requires different scripts for different OSes
+        2b. Prompt users to accept the self-signed certificate
+                - Users may mistake it as part of the CTF challenge
