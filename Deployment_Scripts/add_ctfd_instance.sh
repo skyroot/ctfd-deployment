@@ -5,15 +5,21 @@ hostname="$1"
 ctfname="$2"
 adminemail="$3"
 
+printusage() {
+  echo "Usage: sudo ./add_ctfd_instance.sh <hostname> <ctf_name> <admin_ncl_email>"
+}
+
 echo "$0: Started..."
 
 if [ "$#" -ne 3 ]; then
   echo "Failed: Wrong number of parameters."
+  printusage
   exit
 fi
 
 if [ "$EUID" -ne 0 ]; then 
   echo "Failed: Please run as root."
+  printusage
   exit
 fi
 

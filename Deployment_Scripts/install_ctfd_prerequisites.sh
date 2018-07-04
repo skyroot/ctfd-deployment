@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
+printusage() {
+  echo "Usage: sudo ./install_ctfd_prerequisites.sh"
+}
+
 echo "$0: Started..."
 
 if [ "$EUID" -ne 0 ]; then 
   echo "Failed: Please run as root."
+  printusage
   exit
 fi
 

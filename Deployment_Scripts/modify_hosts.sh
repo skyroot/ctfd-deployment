@@ -9,6 +9,16 @@ ip="$2"
 # Hostname to add/remove.
 hostname="$3"
 
+printusage() {
+  echo "sudo ./modify_hosts.sh add <ip_address> <hostname>"
+}
+
+if [ "$#" -ne 3 ]; then
+  echo "Failed: Wrong number of parameters."
+  printusage
+  exit
+fi
+
 yell() { echo "$0: $*" >&2; }
 die() { yell "$*"; exit 111; }
 try() { "$@" || die "cannot $*"; }

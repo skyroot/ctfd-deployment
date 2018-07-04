@@ -3,15 +3,21 @@
 # Variables
 hostname="$1"
 
+printusage() {
+  echo "Usage: sudo ./remove_ctfd_instance.sh <hostname>"
+}
+
 echo "$0: Started..."
 
 if [ "$#" -ne 1 ]; then
   echo "Failed: Wrong number of parameters."
+  printusage
   exit
 fi
 
 if [ "$EUID" -ne 0 ]; then 
   echo "Failed: Please run as root."
+  printusage
   exit
 fi
 

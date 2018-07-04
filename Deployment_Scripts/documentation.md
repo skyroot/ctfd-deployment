@@ -4,9 +4,11 @@
 
 To add or remove a line in /etc/hosts file to point a hostname to the IP address.
 
+```sudo ./modify_hosts.sh add <ip_address> <hostname>```
+
 Example as DETERLab command for new client nodes:
 
-```tb-set-node-startcmd $n0 "sudo /share/ctfd/modify_hosts.sh add 10.64.0.19 ctf.ncl.sg"```
+> tb-set-node-startcmd $n0 "sudo /share/ctfd/modify_hosts.sh add 10.64.0.19 ctf.ncl.sg"
 
 # For CTFd server VM:
 
@@ -18,7 +20,7 @@ To install prerequisites for CTFd, including setting up uWSGI and nginx.
 
 Must be run once.
 
-```sudo ./install_ctfd_prerequisites.sh ```
+```sudo ./install_ctfd_prerequisites.sh```
 
 ## add_ctfd_instance.sh
 
