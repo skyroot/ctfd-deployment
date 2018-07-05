@@ -31,7 +31,9 @@ It may take a few minutes for the server listener to start completely.
 
 Clients can use Netcat or other applications to send commands to this server program.
 
-```echo 'add cs4238.ctf.ncl.sg "CS4238 CTF" ncl.vte1@gmail.com' | nc 0.0.0.0 8887```
+For example:
+
+> echo 'add cs4238.ctf.ncl.sg "CS4238 CTF" ncl.vte1@gmail.com' | nc 10.64.0.19 8887
 
 ### List of accepted commands 
 
