@@ -68,7 +68,7 @@ git clone https://github.com/nus-ncl/CTFd.git "$hostname"
 cd "$hostname"
 
 # Start this CTFd instance with uWSGI
-uwsgi --plugin python -s /tmp/uwsgi_"$hostname".sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /tmp/ctfd_"$hostname".pid --pyargv '--ncl-sio-url http://172.18.178.14:8080' &>/dev/null &
+nohup uwsgi --plugin python -s /tmp/uwsgi_"$hostname".sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /tmp/ctfd_"$hostname".pid --pyargv '--ncl-sio-url http://172.18.178.14:8080' &
 
 # Set up CTFd
 curl --data "ctf_name=$ctfname&name=$adminemail&email=$adminemail&password=unused_password" -H "Host: $hostname" http://localhost/setup
