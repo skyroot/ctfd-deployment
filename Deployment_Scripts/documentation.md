@@ -12,8 +12,6 @@ Example as DETERLab command for new client nodes:
 
 # For CTFd server VM:
 
-These scripts should be placed in the CTFd server VM. The working directory will be changed to the folder containing these scripts automatically when run.
-
 ## install_ctfd_prerequisites.sh
 
 To install prerequisites for CTFd, including setting up uWSGI and nginx.
@@ -24,7 +22,7 @@ Must be run once.
 
 ## add_ctfd_instance.sh
 
-To create and start a new CTFd instance.
+To create a new CTFd instance.
 
 ```sudo ./add_ctfd_instance.sh <hostname> <ctf_name> <admin_ncl_email>```
 
@@ -35,6 +33,18 @@ To create and start a new CTFd instance.
 For example:
 
 > sudo ./add_ctfd_instance.sh cs4238.ctf.ncl.sg "CS4238 CTF" ncl.vte1@gmail.com
+
+## start_ctfd_instance.sh
+
+To start an existing CTFd instance.
+
+```sudo ./start_ctfd_instance.sh <hostname>```
+
+## stop_ctfd_instance.sh
+
+To stop a running CTFd instance.
+
+```sudo ./stop_ctfd_instance.sh <hostname>```
 
 ## remove_ctfd_instance.sh
 
