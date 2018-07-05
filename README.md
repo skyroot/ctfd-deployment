@@ -7,9 +7,25 @@ Handles the creation, deletion, starting and stopping of CTFd instances on CTFd 
 
 Listens to **socket 0.0.0.0:8887** for commands, then calls the corresponding scripts in Deployment_Scripts.
 
+This program should be kept running in the background, otherwise all CTFd instances will be stopped.
+
 ### Running this server program
 
-```sudo python ./ctfd_instance_manager.py```
+#### To start in background:
+
+1. Type ```nohup sudo python ./ctfd_instance_manager.py```
+
+(Enter your sudo password if prompted)
+
+2. Enter `ctrl + Z`
+
+3. Type ```bg```
+
+It may take a few minutes for the server listener to start completely.
+
+#### To stop this program:
+
+```sudo pkill -9 python```
 
 ### Client program
 
