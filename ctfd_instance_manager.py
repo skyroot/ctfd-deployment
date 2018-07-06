@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import atexit
 import shlex
 import subprocess
 import socket
@@ -175,9 +176,15 @@ class CTFdInstanceManager:
             )
             client_handler.start()
 
+    def kill(self):
+        for instance in self.instances.values():
+            instance.stop()
+        print 'Stopped all instances...'
+
 def main():
     print 'Starting CTFd Instance Manager...'
     manager = CTFdInstanceManager()
+    atexit.register(manager.kill)
     print 'CTFd Instance Manager now listening for commands...'
     manager.listen_for_commands()
 
