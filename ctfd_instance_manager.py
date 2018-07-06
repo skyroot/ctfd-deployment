@@ -10,23 +10,49 @@ SAVE_FILE = 'ctfd_instances.txt'
 BIND_IP = '0.0.0.0'
 BIND_PORT = 8887
 
+class CTFdInstance:
+    def __init__(self, hostname):
+        self.hostname = hostname
+        self.is_running = False
+
+    def start(self):
+        subprocess.check_call(['Deployment_Scripts/start_ctfd_instance.sh', self.hostname], close_fds=True)
+        self.is_running = True
+        print 'CTFd instance {} started'.format(self.hostname)
+
+    def stop(self):
+        subprocess.check_call(['Deployment_Scripts/stop_ctfd_instance.sh', self.hostname], close_fds=True)
+        self.is_running = False
+        print 'CTFd instance {} stopped'.format(self.hostname)
+
+    def list_state(self):
+        state = 'STOPPED'
+        if self.is_running:
+            state = 'RUNNING'
+        return '{}({})'.format(self.hostname, state)
+
 class CTFdInstanceManager:
     def __init__(self):
         self.install_ctfd_prerequisites()
-        self.instance_hostnames = []
-        self.load_instance_hostnames()
+        self.instances = {}
+        self.load_instances()
 
-    def load_instance_hostnames(self):
+    def load_instances(self):
         with open(SAVE_FILE, 'a+') as f:
-            self.instance_hostnames = f.readline().split()
-            print 'Loaded hostnames from {}'.format(SAVE_FILE)
+            instance_hostnames = f.readline().split()
+            for hostname in instance_hostnames:
+                self.instances[hostname] = CTFdInstance(hostname)
+            print 'Loaded instances from {}'.format(SAVE_FILE)
             print self.list_all_instances()
 
-    def save_instance_hostnames(self):
+    def save_instances(self):
+        instance_hostnames = []
+        for hostname in self.instances.keys():
+            instance_hostnames.append(hostname)
         with open(SAVE_FILE, 'w') as f:
-            f.write(' '.join(self.instance_hostnames))
+            f.write(' '.join(instance_hostnames))
             print self.list_all_instances()
-            print 'Saved hostnames into {}'.format(SAVE_FILE)
+            print 'Saved instances into {}'.format(SAVE_FILE)
 
     def install_ctfd_prerequisites(self):
         subprocess.check_call(['Deployment_Scripts/install_ctfd_prerequisites.sh'], close_fds=True)
@@ -36,43 +62,42 @@ class CTFdInstanceManager:
         if ' ' in hostname:
             print 'add_instance failed: Hostname should not have any spaces!'
             return False
-        if hostname in self.instance_hostnames:
+        if hostname in self.instances.keys():
             print 'add_instance failed: Hostname already exists!'
             return False
         subprocess.check_call(['Deployment_Scripts/add_ctfd_instance.sh', hostname, ctf_name, admin_ncl_email], close_fds=True)
-        self.instance_hostnames.append(hostname)
-        print self.list_all_instances()
-        self.save_instance_hostnames()
+        self.instances[hostname] = CTFdInstance(hostname)
+        self.save_instances()
         return True
 
     def remove_instance(self, hostname):
-        if hostname not in self.instance_hostnames:
+        if hostname not in self.instances.keys():
             print 'remove_instance failed: Hostname does not exist!'
             return False
         subprocess.check_call(['Deployment_Scripts/remove_ctfd_instance.sh', hostname], close_fds=True)
-        self.instance_hostnames.remove(hostname)
-        print self.list_all_instances()
-        self.save_instance_hostnames()
+        self.instances.pop(hostname, None)
+        self.save_instances()
         return True
 
     def start_instance(self, hostname):
-        if hostname not in self.instance_hostnames:
+        if hostname not in self.instances.keys():
             print 'start_instance failed: Hostname does not exist!'
             return False
-        subprocess.check_call(['Deployment_Scripts/start_ctfd_instance.sh', hostname], close_fds=True)
-        print 'CTFd instance {} started'.format(hostname)
+        self.instances[hostname].start()
         return True
         
     def stop_instance(self, hostname):
-        if hostname not in self.instance_hostnames:
+        if hostname not in self.instances.keys():
             print 'stop_instance failed: Hostname does not exist!'
             return False
-        subprocess.check_call(['Deployment_Scripts/stop_ctfd_instance.sh', hostname], close_fds=True)
-        print 'CTFd instance {} stopped'.format(hostname)
+        self.instances[hostname].stop()
         return True
         
     def list_all_instances(self):
-        return str(len(self.instance_hostnames)) + ' CTFd instances: ' + ', '.join(self.instance_hostnames)
+        states = []
+        for instance in self.instances.values():
+            states.append(instance.list_state())
+        return str(len(self.instances)) + ' CTFd instances: ' + ', '.join(states)
 
     def handle_client_connection(self, client_socket):
         request = client_socket.recv(1024)
