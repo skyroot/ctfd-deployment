@@ -7,25 +7,43 @@ Handles the creation, deletion, starting and stopping of CTFd instances on CTFd 
 
 Listens to **socket 0.0.0.0:8887** for commands, then calls the corresponding scripts in Deployment_Scripts.
 
-This program should be kept running in the background, otherwise all CTFd instances will be stopped.
+This program should always be running as a background service, otherwise all CTFd instances will be stopped.
 
 ### Running this server program
 
-#### To start in background:
+#### To start as a background service:
 
-1. Type ```nohup sudo python ./ctfd_instance_manager.py```
+1. Create a file `/lib/systemd/system/ctfd-instance-manager.service` with the following content
 
-(Enter your sudo password if prompted)
+```
+[Unit]
+Description=CTFd Instance Manager
+After=network.target
+StartLimitIntervalSec=0
 
-2. Enter `ctrl + Z`
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=/usr/bin/env python /home/hl/Desktop/ctfd-deployment/ctfd_instance_manager.py
 
-3. Type ```bg```
+[Install]
+WantedBy=multi-user.target
+```
 
-It may take a few minutes for the server listener to start completely.
+with */home/hl/Desktop/ctfd-deployment/ctfd_instance_manager.py* as your actual file path.
+
+2. Start the service by typing into a terminal `systemctl start ctfd-instance-manager`
+
+3. Enable the service to automatically start on boot `systemctl enable ctfd-instance-manager`
+
+> Note: It may take a few minutes for the server listener to start completely.
 
 #### To stop this program:
 
-```sudo pkill -9 python```
+1. Stop the service by typing into a terminal `systemctl stop ctfd-instance-manager`
+
+2. Disable the service from automatically start on boot `systemctl disable ctfd-instance-manager`
 
 ### Client program
 

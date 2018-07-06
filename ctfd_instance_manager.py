@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import atexit
+import os
 import shlex
 import subprocess
 import socket
@@ -17,12 +18,16 @@ class CTFdInstance:
         self.is_running = False
 
     def start(self):
-        subprocess.check_call(['Deployment_Scripts/start_ctfd_instance.sh', self.hostname], close_fds=True)
+        this_dir = os.path.dirname(__file__)
+        script_path = os.path.join(this_dir, 'Deployment_Scripts', 'start_ctfd_instance.sh')
+        subprocess.check_call([script_path, self.hostname], close_fds=True)
         self.is_running = True
         print 'CTFd instance {} started'.format(self.hostname)
 
     def stop(self):
-        subprocess.check_call(['Deployment_Scripts/stop_ctfd_instance.sh', self.hostname], close_fds=True)
+        this_dir = os.path.dirname(__file__)
+        script_path = os.path.join(this_dir, 'Deployment_Scripts', 'stop_ctfd_instance.sh')
+        subprocess.check_call([script_path, self.hostname], close_fds=True)
         self.is_running = False
         print 'CTFd instance {} stopped'.format(self.hostname)
 
@@ -56,7 +61,9 @@ class CTFdInstanceManager:
             print 'Saved instances into {}'.format(SAVE_FILE)
 
     def install_ctfd_prerequisites(self):
-        subprocess.check_call(['Deployment_Scripts/install_ctfd_prerequisites.sh'], close_fds=True)
+        this_dir = os.path.dirname(__file__)
+        script_path = os.path.join(this_dir, 'Deployment_Scripts', 'install_ctfd_prerequisites.sh')
+        subprocess.check_call([script_path], close_fds=True)
         print 'CTFd prerequisites installed'
 
     def add_instance(self, hostname, ctf_name, admin_ncl_email):
@@ -66,7 +73,9 @@ class CTFdInstanceManager:
         if hostname in self.instances.keys():
             print 'add_instance failed: Hostname already exists!'
             return False
-        subprocess.check_call(['Deployment_Scripts/add_ctfd_instance.sh', hostname, ctf_name, admin_ncl_email], close_fds=True)
+        this_dir = os.path.dirname(__file__)
+        script_path = os.path.join(this_dir, 'Deployment_Scripts', 'add_ctfd_instance.sh')
+        subprocess.check_call([script_path, hostname, ctf_name, admin_ncl_email], close_fds=True)
         self.instances[hostname] = CTFdInstance(hostname)
         self.save_instances()
         return True
@@ -75,7 +84,9 @@ class CTFdInstanceManager:
         if hostname not in self.instances.keys():
             print 'remove_instance failed: Hostname does not exist!'
             return False
-        subprocess.check_call(['Deployment_Scripts/remove_ctfd_instance.sh', hostname], close_fds=True)
+        this_dir = os.path.dirname(__file__)
+        script_path = os.path.join(this_dir, 'Deployment_Scripts', 'remove_ctfd_instance.sh')
+        subprocess.check_call([script_path, hostname], close_fds=True)
         self.instances.pop(hostname, None)
         self.save_instances()
         return True
