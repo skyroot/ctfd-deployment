@@ -63,6 +63,11 @@ For example:
 
 ```add <hostname> <ctf_name> <admin_ncl_email> <ncl_team_name>```: Adds a new CTFd instance
 
+- *hostname* can be any URL
+- *ctf_name* is the name shown on the CTF website banner
+- *admin_ncl_email* is the ncl.sg login email of this CTF's admin
+- *ncl_team_name* is the name of the NCL Team whose members are allowed to login
+
 ```start <hostname>```: Starts an existing CTFd instance
 
 ```stop <hostname>```: Stops a running CTFd instance
