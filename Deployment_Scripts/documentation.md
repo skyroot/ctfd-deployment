@@ -28,7 +28,7 @@ To create a new CTFd instance.
 
 - *hostname* can be any URL
 - *ctf_name* is the name shown on the CTF website banner
-- *admin_ncl_email* is the ncl.sg login email of this CTF's admin **(Please make sure that this is correct)**
+- *admin_ncl_email* is the ncl.sg login email of this CTF's admin
 
 For example:
 
@@ -38,7 +38,9 @@ For example:
 
 To start an existing CTFd instance.
 
-```sudo ./start_ctfd_instance.sh <hostname>```
+```sudo ./start_ctfd_instance.sh <hostname> <ncl_team_name>```
+
+- *ncl_team_name* is the name of the NCL Team whose members are allowed to login
 
 ## stop_ctfd_instance.sh
 

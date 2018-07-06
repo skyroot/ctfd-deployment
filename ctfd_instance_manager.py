@@ -13,14 +13,15 @@ BIND_IP = '0.0.0.0'
 BIND_PORT = 8887
 
 class CTFdInstance:
-    def __init__(self, hostname):
+    def __init__(self, hostname, ncl_team_name):
         self.hostname = hostname
+        self.ncl_team_name = ncl_team_name
         self.is_running = False
 
     def start(self):
         this_dir = os.path.dirname(__file__)
         script_path = os.path.join(this_dir, 'Deployment_Scripts', 'start_ctfd_instance.sh')
-        subprocess.check_call([script_path, self.hostname], close_fds=True)
+        subprocess.check_call([script_path, self.hostname, self.ncl_team_name], close_fds=True)
         self.is_running = True
         print 'CTFd instance {} started'.format(self.hostname)
 
@@ -35,7 +36,7 @@ class CTFdInstance:
         state = 'STOPPED'
         if self.is_running:
             state = 'RUNNING'
-        return '{} ({})'.format(self.hostname, state)
+        return '{} (NCL Team: {}) - {}'.format(self.hostname, self.ncl_team_name, state)
 
 class CTFdInstanceManager:
     def __init__(self):
@@ -45,18 +46,18 @@ class CTFdInstanceManager:
 
     def load_instances(self):
         with open(SAVE_FILE, 'a+') as f:
-            instance_hostnames = f.readline().split()
-            for hostname in instance_hostnames:
-                self.instances[hostname] = CTFdInstance(hostname)
+            for line in f:
+                hostname, ncl_team_name = line.split(' ', 1)
+                self.instances[hostname] = CTFdInstance(hostname, ncl_team_name)
             print 'Loaded instances from {}'.format(SAVE_FILE)
             print self.list_all_instances()
 
     def save_instances(self):
-        instance_hostnames = []
-        for hostname in self.instances.keys():
-            instance_hostnames.append(hostname)
+        instance_lines = []
+        for instance in self.instances.values():
+            instance_lines.append(instance.hostname + ' ' + instance.ncl_team_name)
         with open(SAVE_FILE, 'w') as f:
-            f.write(' '.join(instance_hostnames))
+            f.write('\n'.join(instance_lines))
             print self.list_all_instances()
             print 'Saved instances into {}'.format(SAVE_FILE)
 
@@ -66,7 +67,7 @@ class CTFdInstanceManager:
         subprocess.check_call([script_path], close_fds=True)
         print 'CTFd prerequisites installed'
 
-    def add_instance(self, hostname, ctf_name, admin_ncl_email):
+    def add_instance(self, hostname, ctf_name, admin_ncl_email, ncl_team_name):
         if ' ' in hostname:
             print 'add_instance failed: Hostname should not have any spaces!'
             return False
@@ -76,7 +77,7 @@ class CTFdInstanceManager:
         this_dir = os.path.dirname(__file__)
         script_path = os.path.join(this_dir, 'Deployment_Scripts', 'add_ctfd_instance.sh')
         subprocess.check_call([script_path, hostname, ctf_name, admin_ncl_email], close_fds=True)
-        self.instances[hostname] = CTFdInstance(hostname)
+        self.instances[hostname] = CTFdInstance(hostname, ncl_team_name)
         self.save_instances()
         return True
 
@@ -123,9 +124,9 @@ class CTFdInstanceManager:
             response = 'Invalid command received: list, add, start, stop, remove'
 
         elif request_tokens[0] == 'add':
-            if len(request_tokens) != 4:
-                response = 'Wrong number of parameters received: add <hostname> <ctf_name> <admin_ncl_email>'
-            elif self.add_instance(request_tokens[1], request_tokens[2], request_tokens[3]):
+            if len(request_tokens) != 5:
+                response = 'Wrong number of parameters received: add <hostname> <ctf_name> <admin_ncl_email> <ncl_team_name>'
+            elif self.add_instance(request_tokens[1], request_tokens[2], request_tokens[3], request_tokens[4]):
                 response = 'Successfully added new CTFd instance: {}'.format(request_tokens[1])
             else:
                 response = 'Failed to add: Check that the hostname is valid and does not exist'

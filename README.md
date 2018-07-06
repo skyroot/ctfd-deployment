@@ -61,7 +61,7 @@ For example:
 
 ```list```: Lists all existing CTFd instances and their hostnames
 
-```add <hostname> <ctf_name> <admin_ncl_email>```: Adds a new CTFd instance
+```add <hostname> <ctf_name> <admin_ncl_email> <ncl_team_name>```: Adds a new CTFd instance
 
 ```start <hostname>```: Starts an existing CTFd instance
 
