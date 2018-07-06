@@ -33,17 +33,17 @@ WantedBy=multi-user.target
 
 with */home/hl/Desktop/ctfd-deployment/ctfd_instance_manager.py* as your actual file path.
 
-2. Start the service by typing into a terminal `systemctl start ctfd-instance-manager`
+2. Start the service by typing into a terminal `sudo systemctl start ctfd-instance-manager`
 
-3. Enable the service to automatically start on boot `systemctl enable ctfd-instance-manager`
+3. Enable the service to automatically start on boot `sudo systemctl enable ctfd-instance-manager`
 
 > Note: It may take a few minutes for the server listener to start completely.
 
 #### To stop this program:
 
-1. Stop the service by typing into a terminal `systemctl stop ctfd-instance-manager`
+1. Stop the service by typing into a terminal `sudo systemctl stop ctfd-instance-manager`
 
-2. Disable the service from automatically start on boot `systemctl disable ctfd-instance-manager`
+2. Disable the service from automatically start on boot `sudo systemctl disable ctfd-instance-manager`
 
 ### Client program
 
