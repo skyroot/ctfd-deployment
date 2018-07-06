@@ -71,6 +71,9 @@ class CTFdInstanceManager:
         if ' ' in hostname:
             print 'add_instance failed: Hostname should not have any spaces!'
             return False
+        if ' ' in ncl_team_name:
+            print 'add_instance failed: NCL Team Name should not have any spaces!'
+            return False
         if hostname in self.instances.keys():
             print 'add_instance failed: Hostname already exists!'
             return False
