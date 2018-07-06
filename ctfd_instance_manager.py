@@ -8,7 +8,7 @@ import socket
 import sys
 import threading
 
-SAVE_FILE = 'ctfd_instances.txt'
+SAVE_FILE = '/opt/ctfd-deployment/ctfd_instances.txt'
 BIND_IP = '0.0.0.0'
 BIND_PORT = 8887
 
