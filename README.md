@@ -11,7 +11,11 @@ This program should always be running as a background service, otherwise all CTF
 
 ### Running this server program
 
-#### To start as a background service:
+#### Prerequisites
+
+1. Install the requirements on your machine using `sudo Deployment_Scripts/install_ctfd_prerequisites.sh`
+
+#### To start as a background service
 
 1. Create a file `/lib/systemd/system/ctfd-instance-manager.service` with the following content
 
@@ -25,13 +29,13 @@ StartLimitIntervalSec=0
 Type=simple
 Restart=always
 RestartSec=1
-ExecStart=/usr/bin/env python /home/hl/Desktop/ctfd-deployment/ctfd_instance_manager.py
+ExecStart=/usr/bin/env python /opt/ctfd-deployment/ctfd_instance_manager.py
 
 [Install]
 WantedBy=multi-user.target
 ```
 
-with */home/hl/Desktop/ctfd-deployment/ctfd_instance_manager.py* as your actual file path.
+where */opt/ctfd-deployment/ctfd_instance_manager.py* is your actual file path.
 
 2. Start the service by typing into a terminal `sudo systemctl start ctfd-instance-manager`
 
@@ -39,7 +43,7 @@ with */home/hl/Desktop/ctfd-deployment/ctfd_instance_manager.py* as your actual 
 
 > Note: It may take a few minutes for the server listener to start completely.
 
-#### To stop this program:
+#### To stop this program
 
 1. Stop the service by typing into a terminal `sudo systemctl stop ctfd-instance-manager`
 

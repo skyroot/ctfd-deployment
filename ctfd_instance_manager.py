@@ -35,11 +35,11 @@ class CTFdInstance:
         state = 'STOPPED'
         if self.is_running:
             state = 'RUNNING'
-        return '{}({})'.format(self.hostname, state)
+        return '{} ({})'.format(self.hostname, state)
 
 class CTFdInstanceManager:
     def __init__(self):
-        self.install_ctfd_prerequisites()
+        # self.install_ctfd_prerequisites()
         self.instances = {}
         self.load_instances()
 
@@ -106,10 +106,11 @@ class CTFdInstanceManager:
         return True
         
     def list_all_instances(self):
-        states = []
+        header_line = str(len(self.instances)) + ' CTFd instances:'
+        result_lines = [header_line]
         for instance in self.instances.values():
-            states.append(instance.list_state())
-        return str(len(self.instances)) + ' CTFd instances: ' + ', '.join(states)
+            result_lines.append(instance.list_state())
+        return '\n'.join(result_lines)
 
     def handle_client_connection(self, client_socket):
         request = client_socket.recv(1024)
@@ -159,7 +160,7 @@ class CTFdInstanceManager:
         else:
             response = 'Invalid command received: list, add, start, stop, remove'
 
-        client_socket.send(response)
+        client_socket.send('{}\n'.format(response))
         print 'Response sent: "{}"'.format(response)
         client_socket.close()
 
