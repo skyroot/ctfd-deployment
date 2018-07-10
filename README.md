@@ -1,6 +1,28 @@
 # ctfd
 Repository for CTFd deployment in NCL
 
+## startcmd scripts
+
+### modify_hosts.sh
+
+To add or remove a line in /etc/hosts file to point a hostname to the IP address.
+
+```sudo ./modify_hosts.sh add <ip_address> <hostname>```
+
+Example as DETERLab command for new client nodes:
+
+> tb-set-node-startcmd $n0 "sudo /share/ctfd/modify_hosts.sh add 10.64.0.19 ctf.ncl.sg"
+
+## send_tcp_command.sh
+
+To send a command to the specified server, such as CTFd Instance Manager.
+
+```sudo ./send_tcp_command.sh <server_ip> <server_port> <command> [<command_args...>]```
+
+Example as DETERLab command to add a new CTFd instance:
+
+> tb-set-node-startcmd $n0 "sudo ./send_tcp_command.sh 10.64.0.19 8887 add cs4238.ctf.ncl.sg "CS4238 CTF" ncl.vte1@gmail.com
+
 ## ctfd_instance_manager.py
 
 Handles the creation, deletion, starting and stopping of CTFd instances on CTFd server VM.
