@@ -13,7 +13,7 @@ Example as DETERLab command for new client nodes:
 
 > tb-set-node-startcmd $n0 "sudo /share/ctfd/modify_hosts.sh add 10.64.0.19 ctf.ncl.sg"
 
-## send_tcp_command.sh
+### send_tcp_command.sh
 
 To send a command to the specified server, such as CTFd Instance Manager.
 
