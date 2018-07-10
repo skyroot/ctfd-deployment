@@ -22,9 +22,5 @@ fi
 
 
 
-echo "Sending the command..."
+echo "Sending the command: ${@:3}"
 echo "${@:3}" | nc $server_ip $server_port
-
-
-
-echo "$0: Command sent successfully!"
