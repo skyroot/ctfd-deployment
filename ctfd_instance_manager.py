@@ -116,15 +116,34 @@ class CTFdInstanceManager:
             result_lines.append(instance.list_state())
         return '\n'.join(result_lines)
 
+    def add_plugin(self, hostname, plugin_name):
+        if hostname not in self.instances.keys():
+            print 'add_plugin failed: Hostname does not exist!'
+            return False
+
+        plugin_git_url = ''
+        if plugin_name == 'ctfd-linear-unlocking':
+            plugin_git_url = 'https://github.com/nus-ncl/ctfd-linear-unlocking.git'
+        elif plugin_name == 'ctfd-challenge-feedback':
+            plugin_git_url = 'https://github.com/nus-ncl/ctfd-challenge-feedback.git'
+        else:
+            print 'add_plugin failed: Plugin name does not exist!'
+            return False
+
+        this_dir = os.path.dirname(__file__)
+        script_path = os.path.join(this_dir, 'Deployment_Scripts', 'add_ctfd_plugin.sh')
+        subprocess.check_call([script_path, hostname, plugin_git_url], close_fds=True)
+        return True
+
     def handle_client_connection(self, client_socket):
         request = client_socket.recv(1024)
         print 'Received {}'.format(request)
         
-        response = ''
+        response = 'Invalid command received: list, add, add-plugin, start, stop, remove'
         request_tokens = shlex.split(request)
 
         if len(request_tokens) == 0:
-            response = 'Invalid command received: list, add, start, stop, remove'
+            pass
 
         elif request_tokens[0] == 'add':
             if len(request_tokens) != 5:
@@ -161,8 +180,13 @@ class CTFdInstanceManager:
         elif request_tokens[0] == 'list':
             response = self.list_all_instances()
 
-        else:
-            response = 'Invalid command received: list, add, start, stop, remove'
+        elif request_tokens[0] == 'add-plugin':
+            if len(request_tokens) != 3:
+                response = 'Wrong number of parameters received: add-plugin <hostname> <plugin_name>'
+            elif self.add_plugin(request_tokens[1], request_tokens[2]):
+                response = 'Successfully added plugin to {}: {}'.format(request_tokens[1], request_tokens[2])
+            else:
+                response = 'Failed to add plugin: Check that the hostname and plugin name exists'
 
         client_socket.send('{}\n'.format(response))
         print 'Response sent: "{}"'.format(response)

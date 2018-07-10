@@ -68,6 +68,13 @@ For example:
 - *admin_ncl_email* is the ncl.sg login email of this CTF's admin
 - *ncl_team_name* is the name of the NCL Team whose members are allowed to login
 
+```add-plugin <hostname> <plugin_name>```: Adds the plugin to an existing CTFd instance
+
+Available plugins:
+
+- ctfd-linear-unlocking
+- ctfd-challenge-feedback
+
 ```start <hostname>```: Starts an existing CTFd instance
 
 ```stop <hostname>```: Stops a running CTFd instance

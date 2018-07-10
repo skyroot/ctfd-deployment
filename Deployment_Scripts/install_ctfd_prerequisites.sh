@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 printusage() {
-  echo "Usage: sudo ./install_ctfd_prerequisites.sh"
+  echo "Usage: sudo $0"
 }
 
 echo "$0: Started..."

@@ -2,10 +2,10 @@
 
 # Variables
 hostname="$1"
-nclteamname="$2"
+plugin_git_url="$2"
 
 printusage() {
-  echo "Usage: sudo $0 <hostname> <ncl_team_name>"
+  echo "Usage: sudo $0 <hostname> <plugin_git_url>"
 }
 
 echo "$0: Started..."
@@ -26,18 +26,22 @@ fi
 cd "${0%/*}"
 
 # Fail if this CTFd instance does not exist
-if [ ! -d "$hostname" ]; then 
+if [ ! -d "$hostname/CTFd/plugins" ]; then 
   echo "Failed: hostname does not exist."
   exit
 fi
 
+# Set current working directory to plugins folder
+cd "$hostname/CTFd/plugins"
+
+echo "Please make sure that you have an active Internet connection."
 
 
-echo "Starting CTFd..."
 
-# Start this CTFd instance with uWSGI
-cd "$hostname"
-uwsgi --plugin python -s /tmp/uwsgi_"$hostname".sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /tmp/ctfd_"$hostname".pid --pyargv "--ncl-sio-url http://172.18.178.14:8080 --ncl-team-name $nclteamname" &>/dev/null &
+echo "Adding the plugin..."
+
+# Clone the plugin folder
+git clone $plugin_git_url
 
 
 

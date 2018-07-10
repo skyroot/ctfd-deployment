@@ -10,11 +10,11 @@ ip="$2"
 hostname="$3"
 
 printusage() {
-  echo "sudo ./modify_hosts.sh add <ip_address> <hostname>"
+  echo "sudo $0 add <ip_address> <hostname>"
 }
 
 if [ "$#" -ne 3 ]; then
-  echo "Failed: Wrong number of parameters."
+  echo "Failed: Wrong number of arguments."
   printusage
   exit
 fi

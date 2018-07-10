@@ -4,13 +4,13 @@
 hostname="$1"
 
 printusage() {
-  echo "Usage: sudo ./remove_ctfd_instance.sh <hostname>"
+  echo "Usage: sudo $0 <hostname>"
 }
 
 echo "$0: Started..."
 
 if [ "$#" -ne 1 ]; then
-  echo "Failed: Wrong number of parameters."
+  echo "Failed: Wrong number of arguments."
   printusage
   exit
 fi

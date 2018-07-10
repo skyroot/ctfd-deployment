@@ -6,13 +6,13 @@ ctfname="$2"
 adminemail="$3"
 
 printusage() {
-  echo "Usage: sudo ./add_ctfd_instance.sh <hostname> <ctf_name> <admin_ncl_email>"
+  echo "Usage: sudo $0 <hostname> <ctf_name> <admin_ncl_email>"
 }
 
 echo "$0: Started..."
 
 if [ "$#" -ne 3 ]; then
-  echo "Failed: Wrong number of parameters."
+  echo "Failed: Wrong number of arguments."
   printusage
   exit
 fi
