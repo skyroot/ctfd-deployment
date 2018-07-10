@@ -9,6 +9,7 @@ import sys
 import threading
 
 SAVE_FILE = '/opt/ctfd-deployment/ctfd_instances.txt'
+SCRIPTS_FOLDER = 'server_scripts'
 BIND_IP = '0.0.0.0'
 BIND_PORT = 8887
 
@@ -20,14 +21,14 @@ class CTFdInstance:
 
     def start(self):
         this_dir = os.path.dirname(__file__)
-        script_path = os.path.join(this_dir, 'Deployment_Scripts', 'start_ctfd_instance.sh')
+        script_path = os.path.join(this_dir, SCRIPTS_FOLDER, 'start_ctfd_instance.sh')
         subprocess.check_call([script_path, self.hostname, self.ncl_team_name], close_fds=True)
         self.is_running = True
         print 'CTFd instance {} started'.format(self.hostname)
 
     def stop(self):
         this_dir = os.path.dirname(__file__)
-        script_path = os.path.join(this_dir, 'Deployment_Scripts', 'stop_ctfd_instance.sh')
+        script_path = os.path.join(this_dir, SCRIPTS_FOLDER, 'stop_ctfd_instance.sh')
         subprocess.check_call([script_path, self.hostname], close_fds=True)
         self.is_running = False
         print 'CTFd instance {} stopped'.format(self.hostname)
@@ -63,7 +64,7 @@ class CTFdInstanceManager:
 
     def install_ctfd_prerequisites(self):
         this_dir = os.path.dirname(__file__)
-        script_path = os.path.join(this_dir, 'Deployment_Scripts', 'install_ctfd_prerequisites.sh')
+        script_path = os.path.join(this_dir, SCRIPTS_FOLDER, 'install_ctfd_prerequisites.sh')
         subprocess.check_call([script_path], close_fds=True)
         print 'CTFd prerequisites installed'
 
@@ -78,7 +79,7 @@ class CTFdInstanceManager:
             print 'add_instance failed: Hostname already exists!'
             return False
         this_dir = os.path.dirname(__file__)
-        script_path = os.path.join(this_dir, 'Deployment_Scripts', 'add_ctfd_instance.sh')
+        script_path = os.path.join(this_dir, SCRIPTS_FOLDER, 'add_ctfd_instance.sh')
         subprocess.check_call([script_path, hostname, ctf_name, admin_ncl_email], close_fds=True)
         self.instances[hostname] = CTFdInstance(hostname, ncl_team_name)
         self.save_instances()
@@ -89,7 +90,7 @@ class CTFdInstanceManager:
             print 'remove_instance failed: Hostname does not exist!'
             return False
         this_dir = os.path.dirname(__file__)
-        script_path = os.path.join(this_dir, 'Deployment_Scripts', 'remove_ctfd_instance.sh')
+        script_path = os.path.join(this_dir, SCRIPTS_FOLDER, 'remove_ctfd_instance.sh')
         subprocess.check_call([script_path, hostname], close_fds=True)
         self.instances.pop(hostname, None)
         self.save_instances()
@@ -131,7 +132,7 @@ class CTFdInstanceManager:
             return False
 
         this_dir = os.path.dirname(__file__)
-        script_path = os.path.join(this_dir, 'Deployment_Scripts', 'add_ctfd_plugin.sh')
+        script_path = os.path.join(this_dir, SCRIPTS_FOLDER, 'add_ctfd_plugin.sh')
         subprocess.check_call([script_path, hostname, plugin_git_url], close_fds=True)
         return True
 

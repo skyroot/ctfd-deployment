@@ -21,7 +21,7 @@ To send a command to the specified server, such as CTFd Instance Manager.
 
 Example as DETERLab command to add a new CTFd instance:
 
-> tb-set-node-startcmd $n0 "sudo ./send_tcp_command.sh 10.64.0.19 8887 add cs4238.ctf.ncl.sg "CS4238 CTF" ncl.vte1@gmail.com
+> tb-set-node-startcmd $n0 "sudo /share/ctfd/send_tcp_command.sh 10.64.0.19 8887 add cs4238.ctf.ncl.sg "CS4238 CTF" ncl.vte1@gmail.com
 
 ## ctfd_instance_manager.py
 
