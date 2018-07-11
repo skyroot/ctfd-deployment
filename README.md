@@ -19,7 +19,7 @@ To send a command to the specified server, such as CTFd Instance Manager.
 
 Wrapper to call modify_hosts.sh and send_tcp_command.sh to setup CTFd client (and server), as there is a max limit of 213 characters in DETERLab startcmd
 
-```sudo ./setup_ctfd.sh <hostname> [<ctf_name> <admin_ncl_email> <ncl_team_name> [<plugin_names...>]]```
+```sudo ./setup_ctfd.sh <hostname> ['<ctf_name>' <admin_ncl_email> <ncl_team_name> [<plugin_names...>]]```
 
 Example as DETERLab command to setup client and server:
 
@@ -69,8 +69,6 @@ where */opt/ctfd-deployment/ctfd_instance_manager.py* is your actual file path.
 
 3. Enable the service to automatically start on boot `sudo systemctl enable ctfd-instance-manager`
 
-> Note: It may take a few minutes for the server listener to start completely.
-
 #### To stop this program
 
 1. Stop the service by typing into a terminal `sudo systemctl stop ctfd-instance-manager`
@@ -89,7 +87,7 @@ For example:
 
 ```list```: Lists all existing CTFd instances and their hostnames
 
-```add <hostname> \"<ctf_name>\" <admin_ncl_email> <ncl_team_name>```: Adds a new CTFd instance
+```add <hostname> "<ctf_name>" <admin_ncl_email> <ncl_team_name>```: Adds a new CTFd instance
 
 - *hostname* can be any URL
 - *ctf_name* is the name shown on the CTF website banner
