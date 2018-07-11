@@ -6,7 +6,7 @@ hostsFile="/etc/hosts"
 # Default IP address for host
 ip="$2"
 
-# Hostname to add/remove.
+# Hostname to add/remove
 hostname="$3"
 
 printusage() {
