@@ -43,6 +43,8 @@ This program should always be running as a background service, otherwise all CTF
 
 1. Install the requirements on your machine using `sudo Deployment_Scripts/install_ctfd_prerequisites.sh`
 
+2. Create self-signed SSL certificate for Nginx by following [this guide](https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04#step-4-enable-the-changes-in-nginx)
+
 #### To start as a background service
 
 1. Create a file `/lib/systemd/system/ctfd-instance-manager.service` with the following content

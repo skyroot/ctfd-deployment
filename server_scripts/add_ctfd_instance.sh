@@ -46,6 +46,18 @@ server {
 
     server_name $hostname;
 
+    return 301 https://\$server_name\$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    include snippets/self-signed.conf;
+    include snippets/ssl-params.conf;
+
+    server_name $hostname;
+
     location / { try_files \$uri @uri_$hostname; }
     location @uri_$hostname {
         include uwsgi_params;
