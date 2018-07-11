@@ -27,7 +27,7 @@ Example as DETERLab command to setup client and server:
 
 Example as DETERLab command to setup client only:
 
-> tb-set-node-startcmd $n0 "sudo /share/ctfd/setup_ctfd.sh cs4238.ctf.ncl.sg"
+> tb-set-node-startcmd $n1 "sudo /share/ctfd/setup_ctfd.sh cs4238.ctf.ncl.sg"
 
 ## CTFd Instance Manager + Server Scripts
 
