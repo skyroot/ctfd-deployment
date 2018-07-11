@@ -148,7 +148,7 @@ class CTFdInstanceManager:
 
         elif request_tokens[0] == 'add':
             if len(request_tokens) != 5:
-                response = 'Wrong number of parameters received: add <hostname> <ctf_name> <admin_ncl_email> <ncl_team_name>'
+                response = 'Wrong number of arguments received: add <hostname> <ctf_name> <admin_ncl_email> <ncl_team_name>'
             elif self.add_instance(request_tokens[1], request_tokens[2], request_tokens[3], request_tokens[4]):
                 response = 'Successfully added new CTFd instance: {}'.format(request_tokens[1])
             else:
@@ -156,7 +156,7 @@ class CTFdInstanceManager:
         
         elif request_tokens[0] == 'remove':
             if len(request_tokens) != 2:
-                response = 'Wrong number of parameters received: remove <hostname>'
+                response = 'Wrong number of arguments received: remove <hostname>'
             elif self.remove_instance(request_tokens[1]):
                 response = 'Successfully removed CTFd instance: {}'.format(request_tokens[1])
             else:
@@ -164,7 +164,7 @@ class CTFdInstanceManager:
 
         elif request_tokens[0] == 'start':
             if len(request_tokens) != 2:
-                response = 'Wrong number of parameters received: start <hostname>'
+                response = 'Wrong number of arguments received: start <hostname>'
             elif self.start_instance(request_tokens[1]):
                 response = 'Successfully started CTFd instance: {}'.format(request_tokens[1])
             else:
@@ -172,7 +172,7 @@ class CTFdInstanceManager:
 
         elif request_tokens[0] == 'stop':
             if len(request_tokens) != 2:
-                response = 'Wrong number of parameters received: stop <hostname>'
+                response = 'Wrong number of arguments received: stop <hostname>'
             elif self.stop_instance(request_tokens[1]):
                 response = 'Successfully stopped CTFd instance: {}'.format(request_tokens[1])
             else:
@@ -183,7 +183,7 @@ class CTFdInstanceManager:
 
         elif request_tokens[0] == 'add-plugin':
             if len(request_tokens) != 3:
-                response = 'Wrong number of parameters received: add-plugin <hostname> <plugin_name>'
+                response = 'Wrong number of arguments received: add-plugin <hostname> <plugin_name>'
             elif self.add_plugin(request_tokens[1], request_tokens[2]):
                 response = 'Successfully added plugin to {}: {}'.format(request_tokens[1], request_tokens[2])
             else:
