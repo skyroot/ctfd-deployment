@@ -9,19 +9,25 @@ To add or remove a line in /etc/hosts file to point a hostname to the IP address
 
 ```sudo ./modify_hosts.sh add <ip_address> <hostname>```
 
-Example as DETERLab command for new client nodes:
-
-> tb-set-node-startcmd $n0 "sudo /share/ctfd/modify_hosts.sh add 10.64.0.19 ctf.ncl.sg"
-
 ### send_tcp_command.sh
 
 To send a command to the specified server, such as CTFd Instance Manager.
 
 ```sudo ./send_tcp_command.sh <server_ip> <server_port> <command> [<command_args...>]```
 
-Example as DETERLab command to add a new CTFd instance:
+### setup_ctfd.sh
 
-> tb-set-node-startcmd $n0 "sudo /share/ctfd/send_tcp_command.sh 10.64.0.19 8887 add cs4238.ctf.ncl.sg 'CS4238 CTF' ncl.vte1@gmail.com"
+Wrapper to call modify_hosts.sh and send_tcp_command.sh to setup CTFd client (and server), as there is a max limit of 213 characters in DETERLab startcmd
+
+```sudo ./setup_ctfd.sh <hostname> [<ctf_name> <admin_ncl_email> <ncl_team_name> [<plugin_names...>]]```
+
+Example as DETERLab command to setup client and server:
+
+> tb-set-node-startcmd $n0 "sudo /share/ctfd/setup_ctfd.sh cs4238.ctf.ncl.sg 'CS4238 CTF' ncl.vte1@gmail.com ncltest01 ctfd-linear-unlocking ctfd-challenge-feedback"
+
+Example as DETERLab command to setup client only:
+
+> tb-set-node-startcmd $n0 "sudo /share/ctfd/setup_ctfd.sh cs4238.ctf.ncl.sg"
 
 ## CTFd Instance Manager + Server Scripts
 
