@@ -15,6 +15,12 @@ To send a command to the specified server, such as CTFd Instance Manager.
 
 ```sudo ./send_tcp_command.sh <server_ip> <server_port> <command> [<command_args...>]```
 
+### install_root_ca_firefox.sh
+
+Installs root CA into Mozilla Firefox on Linux.
+
+```sudo ./install_root_ca.sh```
+
 ### setup_ctfd.sh
 
 Wrapper to call modify_hosts.sh and send_tcp_command.sh to setup CTFd client (and server), as there is a max limit of 213 characters in DETERLab startcmd
@@ -43,7 +49,7 @@ This program should always be running as a background service, otherwise all CTF
 
 1. Install the requirements on your machine using `sudo Deployment_Scripts/install_ctfd_prerequisites.sh`
 
-2. Create self-signed SSL certificate for Nginx by following [this guide](https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04#step-4-enable-the-changes-in-nginx)
+2. Create self-signed SSL certificate for Nginx by following [this guide](deployment_guide/core/ncl-nginx-root-ca-certificate.txt)
 
 #### To start as a background service
 

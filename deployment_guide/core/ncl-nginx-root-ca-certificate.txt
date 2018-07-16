@@ -1,0 +1,33 @@
+To create SSL certificate and configure nginx for HTTPS connection:
+
+1. SSH into the server VM (ctfd@172.18.178.40)
+
+2. Generate rootCA key and certificate:
+sudo openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /opt/nginx-ssl-certs/rootCA.key -out /opt/nginx-ssl-certs/rootCA.crt
+
+with the details in order:
+	SG, Singapore, Singapore, National Cybersecurity R&D Laboratory, ., NCL Root Certificate Authority, support@ncl.sg
+
+3. Create end-entity certificate key:
+sudo openssl genrsa -out /etc/ssl/private/nginx-selfsigned.key 2048
+
+4. Create signing request:
+sudo openssl req -new -key /etc/ssl/private/nginx-selfsigned.key -out ncl-sg.csr
+
+with the details in order:
+	SG, Singapore, Singapore, National Cybersecurity R&D Laboratory, NCL CTF, *.ctf.ncl.sg, support@ncl.sg
+
+5. Generate the signed end-entity certificate:
+sudo openssl x509 -req -in ncl-sg.csr -CA /opt/nginx-ssl-certs/rootCA.crt -CAkey /opt/nginx-ssl-certs/rootCA.key -CAcreateserial -out /etc/ssl/certs/nginx-selfsigned.crt -days 3650 -sha256
+
+6. Create Diffie-Hellman group for Forward Secrecy:
+sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+
+7. Follow step 2 onwards in https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
+
+
+
+For clients:
+
+Install rootCA.crt into their web browsers as a Certificate Authority.
+CTFd server will send SSL certificates signed by this rootCA.
