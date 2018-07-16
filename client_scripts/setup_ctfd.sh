@@ -34,7 +34,7 @@ if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 
 # Add hostname to /etc/hosts
 source "$DIR/modify_hosts.sh" add "$server_ip" "$hostname"
-source "$DIR/install_root_ca_firefox.sh"
+#source "$DIR/install_root_ca_firefox.sh"
 
 # If at least 4 arguments, then setup and start ctfd instance at server
 if (( $# >= 4 )); then
