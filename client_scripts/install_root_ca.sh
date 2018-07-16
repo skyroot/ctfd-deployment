@@ -22,7 +22,7 @@ fi
 
 
 
-certfile="$DIR/../rootCA.crt"
+certfile="$DIR/rootCA.crt"
 certname="NCL Root Certificate Authority"
 
 ### For cert8 (legacy - DBM)

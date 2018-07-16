@@ -86,7 +86,7 @@ cd "$hostname"
 uwsgi --plugin python -s /tmp/uwsgi_"$hostname".sock -w 'CTFd:create_app()' --chmod-socket=666 --pidfile /tmp/ctfd_"$hostname".pid --pyargv "--ncl-sio-url http://172.18.178.14:8080 --ncl-team-name ncltest01" &>/dev/null &
 
 # Set up CTFd
-curl --cacert "$DIR/../rootCA.pem" --data "ctf_name=$ctfname&name=$adminemail&email=$adminemail&password=unused_password" -H "Host: $hostname" https://localhost.ctf.ncl.sg/setup
+curl --cacert "$DIR/rootCA.pem" --data "ctf_name=$ctfname&name=$adminemail&email=$adminemail&password=unused_password" -H "Host: $hostname" https://localhost.ctf.ncl.sg/setup
 
 # Stop CTFd
 uwsgi --stop /tmp/ctfd_"$hostname".pid
