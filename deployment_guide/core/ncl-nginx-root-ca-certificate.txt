@@ -18,7 +18,7 @@ with the details in order:
 	SG, Singapore, Singapore, National Cybersecurity R&D Laboratory, NCL CTF, *.ctf.ncl.sg, support@ncl.sg
 
 5. Create a file "san.txt" with the content:
-subjectAltName=DNS:ctf.ncl.sg,DNS:www.ctf.ncl.sg
+subjectAltName=DNS:*.ctf.ncl.sg
 
 6. Generate the signed end-entity certificate:
 sudo openssl x509 -req -extfile san.txt -in ncl-sg.csr -CA /opt/nginx-ssl-certs/rootCA.crt -CAkey /opt/nginx-ssl-certs/rootCA.key -CAcreateserial -out /etc/ssl/certs/nginx-selfsigned.crt -days 3650 -sha256
