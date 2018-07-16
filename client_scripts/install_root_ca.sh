@@ -14,11 +14,13 @@ fi
 DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 
-# Install certutil if required
+# Install certutil if it is not installed
 if ! foobar_loc="$(type -p "certutil")" || [[ -z $foobar_loc ]]; then
   apt-get update
   apt-get install libnss3-tools -y
 fi
+
+
 
 certfile="$DIR/../rootCA.crt"
 certname="NCL Root Certificate Authority"

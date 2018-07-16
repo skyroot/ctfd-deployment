@@ -11,7 +11,7 @@ admin_ncl_email="$3"
 ncl_team_name="$4"
 
 printusage() {
-  echo "sudo $0 <hostname> [<ctf_name> <admin_ncl_email> <ncl_team_name> [<plugin_names...>]]"
+  echo "sudo $0 <hostname> [<ctf_name> <admin_ncl_email> <ncl_team_name> [<plugin_names...>]] [--install-root-ca]"
 }
 
 if (( $# < 1 )); then
@@ -32,9 +32,16 @@ fi
 DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 
+# Get the last argument
+for last in "$@"; do :; done
+
 # Add hostname to /etc/hosts
 source "$DIR/modify_hosts.sh" add "$server_ip" "$hostname"
-#source "$DIR/install_root_ca_firefox.sh"
+
+# Install root CA if option is set in last argument
+if [ "$last" == "--install-root-ca" ]; then 
+  source "$DIR/install_root_ca.sh"
+fi
 
 # If at least 4 arguments, then setup and start ctfd instance at server
 if (( $# >= 4 )); then
