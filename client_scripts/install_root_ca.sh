@@ -20,7 +20,7 @@ if ! foobar_loc="$(type -p "certutil")" || [[ -z $foobar_loc ]]; then
   apt-get install libnss3-tools -y
 fi
 
-certfile="$DIR/rootCA.crt"
+certfile="$DIR/../rootCA.crt"
 certname="NCL Root Certificate Authority"
 
 ### For cert8 (legacy - DBM)
