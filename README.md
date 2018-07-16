@@ -49,7 +49,9 @@ This program should always be running as a background service, otherwise all CTF
 
 1. Install the requirements on your machine using `sudo Deployment_Scripts/install_ctfd_prerequisites.sh`
 
-2. Create self-signed SSL certificate for Nginx by following [this guide](deployment_guide/core/ncl-nginx-root-ca-certificate.txt)
+1. Add hostname "localhost.ctf.ncl.sg" to IP address 127.0.0.1 in `/etc/hosts` file.
+
+1. Create self-signed SSL certificate for Nginx by following [this guide](deployment_guide/core/ncl-nginx-root-ca-certificate.txt)
 
 #### To start as a background service
 
