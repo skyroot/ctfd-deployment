@@ -15,9 +15,9 @@ To send a command to the specified server, such as CTFd Instance Manager.
 
 ```sudo ./send_tcp_command.sh <server_ip> <server_port> <command> [<command_args...>]```
 
-### install_root_ca_firefox.sh
+### install_root_ca.sh
 
-Installs root CA into Mozilla Firefox on Linux.
+Installs root CA into Firefox, Chrome, Chromium, Vivaldy and other browsers on Linux.
 
 ```sudo ./install_root_ca.sh```
 
