@@ -99,7 +99,7 @@ For example:
 
 ```add <hostname> "<ctf_name>" <admin_ncl_email> <ncl_team_name>```: Adds a new CTFd instance
 
-- *hostname* can be any URL
+- *hostname* must end with ".ctf.ncl.sg" (e.g. cs4238.ctf.ncl.sg)
 - *ctf_name* is the name shown on the CTF website banner
 - *admin_ncl_email* is the ncl.sg login email of this CTF's admin
 - *ncl_team_name* is the name of the NCL Team whose members are allowed to login
