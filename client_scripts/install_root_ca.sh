@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+printusage() {
+  echo "Usage: sudo $0"
+}
+
 if [ "$EUID" -ne 0 ]; then 
   echo "Failed: Please run as root."
   printusage
