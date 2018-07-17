@@ -1,4 +1,4 @@
-# ctfd
+# ctfd-deployment
 Repository for CTFd deployment in NCL
 
 ## Client Scripts
