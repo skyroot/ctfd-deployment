@@ -31,7 +31,7 @@ Wrapper for client scripts to setup CTFd client and server, as there is a max li
 - *ctf_name* is the name shown on the CTF website banner
 - *admin_ncl_email* is the ncl.sg login email of this CTF's admin
 - *ncl_team_name* is the name of the NCL Team whose members are allowed to login
-- *plugin_names* are space-separated list of optional plugins to install
+- *plugin_names* is space-separated list of [optional plugins](#available-plugins) to install
 - *--install-root-ca* is an optional argument which runs install_root_ca.sh if set
 
 Example as DETERLab command to setup client and server:
@@ -122,7 +122,7 @@ For example:
 
 ```add-plugin <hostname> <plugin_name>```: Adds the plugin to an existing CTFd instance
 
-Available plugins:
+#### Available plugins:
 
 - ctfd-linear-unlocking
 - ctfd-challenge-feedback
