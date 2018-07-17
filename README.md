@@ -23,21 +23,33 @@ Installs root CA into Firefox, Chrome, Chromium, Vivaldy and other browsers on L
 
 ### setup_ctfd.sh
 
-Wrapper to call modify_hosts.sh and send_tcp_command.sh to setup CTFd client (and server), as there is a max limit of 213 characters in DETERLab startcmd.
+Wrapper for client scripts to setup CTFd client and server, as there is a max limit of 213 characters in DETERLab startcmd.
 
-```sudo ./setup_ctfd.sh <hostname> ['<ctf_name>' <admin_ncl_email> <ncl_team_name> [<plugin_names...>]] [--install-root-ca]```
+```sudo ./setup_ctfd.sh <hostname> '<ctf_name>' <admin_ncl_email> <ncl_team_name> [<plugin_names...>] [--install-root-ca]```
 
 - *hostname* must end with ".ctf.ncl.sg" (e.g. cs4238.ctf.ncl.sg)
-- *ctf_name*, *admin_ncl_email*, *ncl_team_name* (and *plugin_names*) must be set when setting up the server
+- *ctf_name* is the name shown on the CTF website banner
+- *admin_ncl_email* is the ncl.sg login email of this CTF's admin
+- *ncl_team_name* is the name of the NCL Team whose members are allowed to login
+- *plugin_names* are space-separated list of optional plugins to install
 - *--install-root-ca* is an optional argument which runs install_root_ca.sh if set
 
 Example as DETERLab command to setup client and server:
 
 > tb-set-node-startcmd $n0 "sudo /share/ctfd/setup_ctfd.sh cs4238.ctf.ncl.sg 'CS4238 CTF' ncl.vte1@gmail.com ncltest01 ctfd-linear-unlocking ctfd-challenge-feedback --install-root-ca"
 
+### setup_ctfd_client.sh
+
+Wrapper for client scripts to setup CTFd client, as there is a max limit of 213 characters in DETERLab startcmd.
+
+```sudo ./setup_ctfd_client.sh <hostname> [--install-root-ca]```
+
+- *hostname* is the hostname of the CTF server (e.g. cs4238.ctf.ncl.sg)
+- *--install-root-ca* is an optional argument which runs install_root_ca.sh if set
+
 Example as DETERLab command to setup client only:
 
-> tb-set-node-startcmd $n1 "sudo /share/ctfd/setup_ctfd.sh cs4238.ctf.ncl.sg --install-root-ca"
+> tb-set-node-startcmd $n1 "sudo /share/ctfd/setup_ctfd_client.sh cs4238.ctf.ncl.sg --install-root-ca"
 
 ## CTFd Instance Manager + Server Scripts
 
