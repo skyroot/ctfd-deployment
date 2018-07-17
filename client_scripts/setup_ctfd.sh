@@ -38,11 +38,6 @@ for last in "$@"; do :; done
 # Add hostname to /etc/hosts
 source "$DIR/modify_hosts.sh" add "$server_ip" "$hostname"
 
-# Install root CA if option is set in last argument
-if [ "$last" == "--install-root-ca" ]; then 
-  source "$DIR/install_root_ca.sh"
-fi
-
 # If at least 4 arguments, then setup and start ctfd instance at server
 if (( $# >= 4 )); then
   source "$DIR/send_tcp_command.sh" "$server_ip" "$server_port" add "$hostname" \"$ctf_name\" "$admin_ncl_email" "$ncl_team_name"
@@ -51,4 +46,9 @@ if (( $# >= 4 )); then
       source "$DIR/send_tcp_command.sh" "$server_ip" "$server_port" add-plugin "$hostname" "$plugin_name"
   done
   source "$DIR/send_tcp_command.sh" "$server_ip" "$server_port" start "$hostname"
+fi
+
+# Install root CA if option is set in last argument
+if [ "$last" == "--install-root-ca" ]; then 
+  source "$DIR/install_root_ca.sh"
 fi
