@@ -55,7 +55,7 @@ Example as DETERLab command to setup client only:
 
 Handles the creation, deletion, starting and stopping of CTFd instances on CTFd server VM.
 
-Listens to **socket 0.0.0.0:8887** for commands, then calls the corresponding scripts in Deployment_Scripts.
+Listens to **socket 0.0.0.0:8887** for commands, then calls the corresponding scripts in server_scripts.
 
 This program should always be running as a background service, otherwise all CTFd instances will be stopped.
 
@@ -63,7 +63,7 @@ This program should always be running as a background service, otherwise all CTF
 
 #### Prerequisites
 
-1. Install the requirements on your machine using `sudo Deployment_Scripts/install_ctfd_prerequisites.sh`
+1. Install the requirements on your machine using `sudo server_scripts/install_ctfd_prerequisites.sh`
 
 1. Add hostname "localhost.ctf.ncl.sg" to IP address 127.0.0.1 in `/etc/hosts` file.
 
