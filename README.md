@@ -138,6 +138,6 @@ Example as DETERLab command to setup client only:
 
 > tb-set-node-startcmd $n1 "sudo /share/ctfd/setup_ctfd_client.sh cs4238.ctf.ncl.sg --install-root-ca"
 
-## Standalone Deployment Scripts
+## Standalone Deployment Guides
 
 This folder contains older guides on how to deploy CTFd and their plugins on different flavors of Linux. They may not work correctly, and are independent of CTFd Instance Manager.
