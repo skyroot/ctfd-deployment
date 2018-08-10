@@ -17,6 +17,8 @@ This program should always be running as a background service, otherwise all CTF
 
 1. Create self-signed SSL certificate for Nginx by following [this guide](deployment_guide/core/ncl-nginx-root-ca-certificate.txt)
 
+> It is recommended to clone this repository into /opt/ctfd-deployment/ as per Linux files and folders convention.
+
 ### Running this server program
 
 #### To start as a background service
@@ -135,3 +137,7 @@ Wrapper for client scripts to setup CTFd client, as there is a max limit of 213 
 Example as DETERLab command to setup client only:
 
 > tb-set-node-startcmd $n1 "sudo /share/ctfd/setup_ctfd_client.sh cs4238.ctf.ncl.sg --install-root-ca"
+
+## Standalone Deployment Scripts
+
+This folder contains older guides on how to deploy CTFd and their plugins on different flavors of Linux. They may not work correctly, and are independent of CTFd Instance Manager.
