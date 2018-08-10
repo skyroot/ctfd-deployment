@@ -11,7 +11,7 @@ This program should always be running as a background service, otherwise all CTF
 
 ### Prerequisites
 
-1. Ubuntu with Internet connection
+1. Ubuntu installed, with Internet connection
 
 1. Install the requirements on your machine using `sudo server_scripts/install_ctfd_prerequisites.sh`
 
