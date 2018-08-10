@@ -61,7 +61,7 @@ Clients can use Netcat or other applications to send commands to this server pro
 
 For example:
 
-> echo 'add cs4238.ctf.ncl.sg "CS4238 CTF" ncl.vte1@gmail.com' | nc 10.64.0.19 8887
+> echo 'add cs4238.ctf.ncl.sg "CS4238 CTF" ncl.vte1@gmail.com ncltest01' | nc 10.64.0.19 8887
 
 Template client scripts for deployment are available at [Client Scripts](#client-scripts)
 
