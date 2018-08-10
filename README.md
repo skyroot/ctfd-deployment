@@ -143,3 +143,5 @@ Example as DETERLab command to setup client only:
 ## Standalone Deployment Guides
 
 This folder contains older guides on how to deploy CTFd and their plugins on different flavors of Linux. They may not work correctly, and are independent of CTFd Instance Manager.
+
+The instructions in these standalone guides are to clone CTFd from [CTFd/CTFd](https://github.com/CTFd/CTFd) instead of from [nus-ncl/CTFd](https://github.com/nus-ncl/ctfd), as it is not coupled to NCL authentication service.
