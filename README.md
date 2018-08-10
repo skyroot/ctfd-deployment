@@ -11,6 +11,8 @@ This program should always be running as a background service, otherwise all CTF
 
 ### Prerequisites
 
+1. Ubuntu with Internet connection
+
 1. Install the requirements on your machine using `sudo server_scripts/install_ctfd_prerequisites.sh`
 
 1. Add hostname "localhost.ctf.ncl.sg" to IP address 127.0.0.1 in `/etc/hosts` file.
