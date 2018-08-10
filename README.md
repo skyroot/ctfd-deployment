@@ -17,7 +17,7 @@ This program should always be running as a background service, otherwise all CTF
 
 1. Add hostname "localhost.ctf.ncl.sg" to IP address 127.0.0.1 in `/etc/hosts` file.
 
-1. Create self-signed SSL certificate for Nginx by following [this guide](deployment_guide/core/ncl-nginx-root-ca-certificate.txt)
+1. Create self-signed SSL certificate for Nginx by following [this guide](/standalone_deployment_guides/core/ncl-nginx-root-ca-certificate.txt)
 
 > It is recommended to clone this repository into /opt/ctfd-deployment/ as per Linux files and folders convention.
 
