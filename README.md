@@ -1,6 +1,8 @@
 # ctfd-deployment
 Repository for CTFd deployment in NCL
 
+**If you are NCL admin who would like deploy a new instance of CTFd in NCL, please go to [wiki](https://github.com/nus-ncl/ctfd-deployment/wiki) for step-by-step instructions.**
+
 ## CTFd Instance Manager + Server Scripts
 
 Handles the creation, deletion, starting and stopping of CTFd instances on CTFd server VM.
