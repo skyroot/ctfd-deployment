@@ -4,6 +4,7 @@ This is a batch script designed to connect to a virtual machine on a physical no
 1. Execute Microsoft's Remote Desktop Connection client to the local port
 
 ## Requirements
+* Powershell
 * Port of your choice must be opened on the physical node
 
 ## Additional Software Used
