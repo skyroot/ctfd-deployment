@@ -10,6 +10,7 @@ Firefox profiles in this directory were created at a clean Kali VM by the first 
 ## Provisioning
 
 1. Copy the selected Firefox profile to **users.ncl.sg:/proj/team/exp/node/**.
+1. Rename the folder with profile **firefox-CA** to **firefox**.
 1. Add the following lines to the default NCL Kali VM provisioning script (**kaliXnY.conf.sh**):
     ~~~~
     # Firefox configuration for NCL CTF server
