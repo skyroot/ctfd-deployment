@@ -6,7 +6,7 @@ Firefox profiles in this directory were created at a clean Kali VM by the first 
 
 - [firefox-CA](firefox-CA/) is the default profile with [the NCL root CA certificate](../../server_scripts/rootCA.pem).
 - [firefox-CA-cs4238.ctf.ncl.sg](firefox-CA-cs4238.ctf.ncl.sg/) is [firefox-CA](firefox-CA/) with homepage set to https://cs4238.ctf.ncl.sg.
-- [firefox-CA-simple](firefox-CA-simple/) has a smaller profile size with homepage set to https://ctf.ncl.sg and fixes the issue with the previous two CA working on certain machines.
+- [firefox-CA-slim](firefox-CA-slim/) has a smaller profile size with homepage set to https://ctf.ncl.sg and fixes the issue with the previous two CA working on certain machines.
 
 ## Provisioning
 
@@ -20,7 +20,7 @@ Firefox profiles in this directory were created at a clean Kali VM by the first 
     cp -r /vagrant/firefox ~/.mozilla
     ~~~~
     
-    **for firefox-CA-simple**
+    **for firefox-CA-slim**
     ~~~
     update_conf "10.64.0.19 [ctf_web_address]" "/etc/hosts"
     mkdir -p ~/.mozilla
