@@ -6,6 +6,7 @@ Firefox profiles in this directory were created at a clean Kali VM by the first 
 
 - [firefox-CA](firefox-CA/) is the default profile with [the NCL root CA certificate](../../server_scripts/rootCA.pem).
 - [firefox-CA-cs4238.ctf.ncl.sg](firefox-CA-cs4238.ctf.ncl.sg/) is [firefox-CA](firefox-CA/) with homepage set to https://cs4238.ctf.ncl.sg.
+- [firefox-CA-simple](firefox-CA-simple/) has a smaller profile size with homepage set to https://ctf.ncl.sg and fixes the issue with the previous two CA working on certain machines.
 
 ## Provisioning
 
@@ -18,5 +19,13 @@ Firefox profiles in this directory were created at a clean Kali VM by the first 
     mkdir  ~/.mozilla
     cp -r /vagrant/firefox ~/.mozilla
     ~~~~
+    
+    **for firefox-CA-simple**
+    ~~~
+    update_conf "10.64.0.19 [ctf_web_address]" "/etc/hosts"
+    mkdir -p ~/.mozilla
+    sudo cp -r /vagrant/firefox ~/.mozilla/
+    sudo sed -i 's|\("browser.startup.homepage",\) "\(.*\)"|\1 "https://[ctf_web_address]"|' ~/.mozilla/firefox/*.default/prefs.js
+    ~~~
 1. Double check that the relevant **Vagrantfile** does not disable mounting of working directory */proj/team/exp/node* as */vagrant* in a Kali VM.
 1. Enjoy the access to the CTFd server without any SSL certificate error!
